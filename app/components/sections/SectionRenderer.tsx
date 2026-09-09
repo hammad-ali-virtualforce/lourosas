@@ -4,7 +4,7 @@ import TestimonialsSection from "./TestimonialsSection";
 import AreasSection from "./AreasSection";
 import ClientResourcesSection from "./ClientResourcesSection";
 import FeaturedPropertiesSection from "./FeaturedPropertiesSection";
-
+import AgentProfileSection from "./AgentProfileSection";
 import type {
   PageSection,
 } from "@/app/lib/wordpress/grapgql/pages";
@@ -130,6 +130,14 @@ export default async function SectionRenderer({
               return (
                 <FeaturedPropertiesSection
                   key={`featured-properties-${index}`}
+                  section={section}
+                />
+              );
+
+            case "PageSectionsHeroAgentProfileLayout":
+              return (
+                <AgentProfileSection
+                  key={`agent-profile-${index}`}
                   section={section}
                 />
               );

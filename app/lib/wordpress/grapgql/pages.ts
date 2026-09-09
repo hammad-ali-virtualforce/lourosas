@@ -145,7 +145,24 @@ export type AreasLayout = {
     | null;
 };
 
+/* =========================================================
+   AGENT PROFILE
+========================================================= */
 
+export type AgentProfileLayout = {
+  __typename:
+    "PageSectionsHeroAgentProfileLayout";
+
+  agentProfileHeading: string | null;
+
+  agentProfileImage: MediaEdge;
+
+  agentProfileBackgroundColor:
+    string | null;
+
+  agentProfileTextColor:
+    string | null;
+};
 /* =========================================================
    CLIENT RESOURCES
 ========================================================= */
@@ -195,7 +212,8 @@ export type PageSection =
   | TestimonialsLayout
   | AreasLayout
   | ClientResourcesLayout
-  | FeaturedPropertiesLayout;
+  | FeaturedPropertiesLayout
+  | AgentProfileLayout;
 
 /* =========================================================
    PAGE
@@ -423,6 +441,24 @@ export async function getPageByUri(
 
                 backgroundColor
                 textColor
+              }
+              # ============================================
+              # AGENT PROFILE
+              # ============================================
+
+              ... on PageSectionsHeroAgentProfileLayout {
+                agentProfileHeading: heading
+
+                agentProfileImage: image {
+                  node {
+                    sourceUrl
+                    mediaItemUrl
+                    altText
+                  }
+                }
+
+                agentProfileBackgroundColor: backgroundColor
+                agentProfileTextColor: textColor
               }
             }
           }
