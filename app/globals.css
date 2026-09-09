@@ -1,26 +1,85 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --font-heading: var(--font-cormorant);
+  --font-body: var(--font-montserrat);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html,
+body {
+  margin: 0;
+  padding: 0;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-body), sans-serif;
+}
+
+/* Headings */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-heading), serif;
+}
+
+/* Body text */
+p {
+  font-family: var(--font-body), sans-serif;
+}
+
+/* Reusable classes */
+.font-heading {
+  font-family: var(--font-heading), serif;
+}
+
+.font-body {
+  font-family: var(--font-body), sans-serif;
+}
+
+
+/* =========================================
+   HERO SWIPER
+========================================= */
+
+.hero-swiper,
+.hero-swiper .swiper-wrapper,
+.hero-swiper .swiper-slide {
+  width: 100%;
+  height: 100%;
+}
+
+/* Luxury fade */
+.hero-swiper .swiper-slide {
+  overflow: hidden;
+}
+
+/* Pagination */
+.hero-swiper .swiper-pagination {
+  bottom: 28px !important;
+}
+
+.hero-swiper .swiper-pagination-bullet {
+  width: 24px;
+  height: 2px;
+  margin: 0 5px !important;
+
+  border-radius: 0;
+
+  background: rgba(255, 255, 255, 0.5);
+
+  opacity: 1;
+
+  transition:
+    width 0.4s ease,
+    background-color 0.4s ease;
+}
+
+.hero-swiper
+  .swiper-pagination-bullet-active {
+  width: 44px;
+
+  background: #ffffff;
 }
