@@ -574,39 +574,56 @@ export default async function Footer() {
           {social.socialMedia?.length > 0 && (
             <div className="flex items-center gap-3">
                 {social.socialMedia.map((item, index) => {
-                let iconValue = "";
+                  const rawIcon: unknown = item.icon;
 
-                if (typeof item.icon === "string") {
-                    iconValue = item.icon;
-                } else if (
-                    item.icon &&
-                    typeof item.icon === "object" &&
-                    "value" in item.icon
-                ) {
-                    iconValue = String(item.icon.value);
-                } else if (Array.isArray(item.icon)) {
-                    iconValue = String(item.icon[0] ?? "");
-                }
+                  let iconValue = "";
 
-                const key =
+                  if (typeof rawIcon === "string") {
+                    iconValue = rawIcon;
+                  } else if (Array.isArray(rawIcon)) {
+                    iconValue =
+                      typeof rawIcon[0] === "string"
+                        ? rawIcon[0]
+                        : "";
+                  } else if (
+                    rawIcon &&
+                    typeof rawIcon === "object" &&
+                    "value" in rawIcon
+                  ) {
+                    const value = (
+                      rawIcon as {
+                        value?: unknown;
+                      }
+                    ).value;
+
+                    iconValue =
+                      typeof value === "string"
+                        ? value
+                        : "";
+                  }
+
+                  const key =
                     iconValue
-                    .trim()
-                    .toLowerCase() as keyof typeof socialIconMap;
+                      .trim()
+                      .toLowerCase() as keyof typeof socialIconMap;
 
-                const Icon = socialIconMap[key];
+                  const Icon =
+                    socialIconMap[key];
 
-                if (!Icon || !item.link) {
+                  if (!Icon || !item.link) {
                     return null;
-                }
+                  }
 
-                return (
+                  return (
                     <a
-                    key={`${iconValue}-${index}`}
-                    href={item.link}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label={item.label || iconValue}
-                    className="
+                      key={`${iconValue}-${index}`}
+                      href={item.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={
+                        item.label || iconValue
+                      }
+                      className="
                         flex
                         h-10
                         w-10
@@ -619,11 +636,11 @@ export default async function Footer() {
                         duration-300
                         hover:-translate-y-1
                         hover:bg-[#222]
-                    "
+                      "
                     >
-                    <Icon size={15} />
+                      <Icon size={15} />
                     </a>
-                );
+                  );
                 })}
             </div>
             )}

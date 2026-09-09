@@ -4,7 +4,7 @@ import Link from "next/link";
 import type {
   ClientResourcesLayout,
   ClientResourceItem,
-} from "@/app/lib/wordpress/grapgql/page";
+} from "@/app/lib/wordpress/grapgql/pages";
 
 type ClientResourcesSectionProps = {
   section: ClientResourcesLayout;

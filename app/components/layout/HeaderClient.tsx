@@ -373,8 +373,8 @@ export default function HeaderClient({
                           
                         `}
                         style={{
-                        color: isScrolled
-                            ? headerSettings.headerText
+                          color: isScrolled
+                            ? (headerSettings.headerText ?? "#111")
                             : "#fff",
                         }}
                       >

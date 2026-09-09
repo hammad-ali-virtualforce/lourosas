@@ -3,7 +3,7 @@ import { ArrowUpRight } from "lucide-react";
 
 import type {
   ContentMediaLayout,
-} from "@/app/lib/wordpress/grapgql/page";
+} from "@/app/lib/wordpress/grapgql/pages";
 
 type ContentMediaSectionProps = {
   section: ContentMediaLayout;

@@ -27,7 +27,7 @@ import "swiper/css";
 
 import type {
   FeaturedPropertiesLayout,
-} from "@/app/lib/wordpress/grapgql/page";
+} from "@/app/lib/wordpress/grapgql/pages";
 
 import {
   listings,

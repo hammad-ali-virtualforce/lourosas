@@ -7,7 +7,7 @@ import FeaturedPropertiesSection from "./FeaturedPropertiesSection";
 
 import type {
   PageSection,
-} from "@/app/lib/wordpress/grapgql/page";
+} from "@/app/lib/wordpress/grapgql/pages";
 
 import {
   getTestimonials,

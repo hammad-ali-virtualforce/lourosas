@@ -12,7 +12,7 @@ import type {
 
 import type {
   AreasLayout,
-} from "@/app/lib/wordpress/grapgql/page";
+} from "@/app/lib/wordpress/grapgql/pages";
 
 type AreasSectionProps = {
   section: AreasLayout;

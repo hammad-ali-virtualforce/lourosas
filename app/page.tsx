@@ -4,7 +4,7 @@ import SectionRenderer from "./components/sections/SectionRenderer";
 
 import {
   getHomePage,
-} from "./lib/wordpress/grapgql/page";
+} from "./lib/wordpress/grapgql/pages";
 
 import {
   getSiteSettings,

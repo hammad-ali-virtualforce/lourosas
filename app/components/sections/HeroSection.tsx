@@ -28,7 +28,7 @@ import type {
   HeroLayout,
   HeroSlide,
   MediaEdge,
-} from "@/app/lib/wordpress/grapgql/page";
+} from "@/app/lib/wordpress/grapgql/pages";
 
 type HeroSectionProps = {
   section: HeroLayout;
