@@ -283,7 +283,7 @@ export default function HeaderClient({
                 priority
                 className="
                   h-auto
-                  w-[120px]
+                  w-[110px]
                   object-contain
                 "
               />
