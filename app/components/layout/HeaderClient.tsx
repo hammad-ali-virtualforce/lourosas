@@ -285,8 +285,6 @@ export default function HeaderClient({
                   h-auto
                   w-[120px]
                   object-contain
-                  md:w-[130px]
-                  lg:w-[140px]
                 "
               />
             ) : (
