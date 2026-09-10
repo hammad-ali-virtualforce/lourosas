@@ -21,16 +21,12 @@ export type Listing = {
   baths?: number | null;
   sqft?: string | null;
 
+  description?: string | null;
+
   image: string;
 
   status: ListingStatus;
 
-  /*
-   * Internal Next.js property URL.
-   *
-   * Example:
-   * /properties/houston-commercial-property-1/
-   */
   url: string;
 };
 

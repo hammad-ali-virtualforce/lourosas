@@ -19,6 +19,7 @@ function ResourceCard({
   textColor,
 }: {
   resource: ClientResourceItem;
+  textColor: string;
 }) {
   const imageUrl =
     resource.image?.node?.sourceUrl ||
@@ -151,7 +152,7 @@ function ResourceCard({
                 lg:text-[29px]
               "
               style={{
-            color: `${textColor}`}}
+            color: textColor}}
             >
               {resource.title}
             </h3>

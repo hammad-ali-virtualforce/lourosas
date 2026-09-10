@@ -68,8 +68,6 @@ function getAreaImage(
   return (
     area.featuredImage?.node
       ?.sourceUrl ||
-    area.featuredImage?.node
-      ?.mediaItemUrl ||
     null
   );
 }
@@ -338,31 +336,20 @@ export default function AreasSection({
     layout ===
     "all_grid";
 
-  /* =======================================================
-     NUMBER TO SHOW
+/* =======================================================
+   VISIBLE AREAS
 
-     home_grid:
-     respect numberToShow
+   home_grid:
+   show first 6
 
-     all_grid:
-     display every Area CPT item
-  ======================================================= */
+   all_grid:
+   show all
+======================================================= */
 
-  const numberToShow =
-    Math.max(
-      1,
-      Number(
-        section.numberToShow
-      ) || 6
-    );
-
-  const visibleAreas =
-    isAllGrid
-      ? areas
-      : areas.slice(
-          0,
-          numberToShow
-        );
+const visibleAreas =
+  isAllGrid
+    ? areas
+    : areas.slice(0, 6);
 
   /* =======================================================
      COLORS

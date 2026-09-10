@@ -132,12 +132,10 @@ export type AreasLayout = {
   __typename:
     "PageSectionsHeroAreasLayout";
 
-  /*
-   * We alias GraphQL "layout" to "areasLayout"
-   * because Content Media layout returns [String]
-   * while Areas layout returns String.
-   */
-  areasLayout: string | null;
+  areasLayout:
+    | string
+    | string[]
+    | null;
 
   eyebrow: string | null;
   heading: string | null;
@@ -145,7 +143,6 @@ export type AreasLayout = {
 
   backgroundColor: string | null;
   textColor: string | null;
-
 
   selectedAreas?:
     | {

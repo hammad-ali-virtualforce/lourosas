@@ -41,20 +41,42 @@ type HeroSectionProps = {
 ========================================= */
 
 function getOption(
-  value: string[] | null | undefined,
+  value:
+    | string
+    | string[]
+    | null
+    | undefined,
   fallback: string
 ) {
-  if (!value?.length) {
+  if (!value) {
     return fallback;
   }
 
-  return String(value[0])
+  const option =
+    Array.isArray(value)
+      ? value[0]
+      : value;
+
+  if (!option) {
+    return fallback;
+  }
+
+  return String(option)
     .trim()
-    .toLowerCase();
+    .toLowerCase()
+    .replace(/\s+/g, "_")
+    .replace(/-/g, "_");
 }
 
+/* =========================================
+   GET MEDIA URL
+========================================= */
+
 function getMediaUrl(
-  media: MediaEdge
+  media:
+    | MediaEdge
+    | null
+    | undefined
 ): string | null {
   return (
     media?.node?.sourceUrl ||
@@ -63,35 +85,61 @@ function getMediaUrl(
   );
 }
 
-function getHeroType(
-  value: string[] | null
-): "main" | "inner" | "simple" {
-  const type = getOption(value, "main");
+/* =========================================
+   GET HERO TYPE
+========================================= */
 
-  if (type.includes("simple")) {
+function getHeroType(
+  value:
+    | string
+    | string[]
+    | null
+    | undefined
+): "main" | "inner" | "simple" {
+  const type =
+    getOption(
+      value,
+      "main"
+    );
+
+  if (
+    type.includes(
+      "simple"
+    )
+  ) {
     return "simple";
   }
 
-  if (type.includes("inner")) {
+  if (
+    type.includes(
+      "inner"
+    )
+  ) {
     return "inner";
   }
 
   return "main";
 }
 
+/* =========================================
+   GET MEDIA TYPE
+========================================= */
+
 function getMediaType(
   slide: HeroSlide
 ): "image" | "video" {
-  const type = getOption(
-    slide.mediaType,
-    "image"
-  );
+  const type =
+    getOption(
+      slide.mediaType,
+      "image"
+    );
 
-  return type.includes("video")
+  return type.includes(
+    "video"
+  )
     ? "video"
     : "image";
 }
-
 /* =========================================
    SLIDE MEDIA
 ========================================= */
@@ -462,6 +510,7 @@ export default function HeroSection({
             text-center
           "
         >
+          
           <h1
             className="
               font-heading
