@@ -1,5 +1,9 @@
 import { graphqlRequest } from "./graphql";
 
+import type {
+  BlogPost,
+} from "./posts";
+
 /* =========================================================
    SHARED MEDIA
 ========================================================= */
@@ -22,7 +26,7 @@ export type HeroSlide = {
   eyebrow: string | null;
   heading: string | null;
 
-  mediaType: string[] | null;
+  mediaType: string | string[] | null;
 
   image: MediaEdge;
   video: MediaEdge;
@@ -32,7 +36,7 @@ export type HeroSlide = {
 export type HeroLayout = {
   __typename: "PageSectionsHeroHeroLayout";
 
-  heroType: string[] | null;
+  heroType: string | string[] | null;
 
   autoplay: boolean | null;
   pauseOnHover: boolean | null;
@@ -60,15 +64,27 @@ export type ContentMediaStat = {
   label: string | null;
 };
 
-export type ContentMediaButton = {
+
+export type ActionButtonFields = {
   buttonLabel: string | null;
   buttonLink: string | null;
-};
+
+  isContactButton: boolean | null;
+
+  contactAction:
+    | string
+    | string[]
+    | null;
+
+  contactPageLink: string | null;
+}; 
+
+export type ContentMediaButton =   ActionButtonFields;
 
 export type ContentMediaLayout = {
   __typename: "PageSectionsHeroContentMediaLayout";
 
-  layout: string[] | null;
+  layout: string | string[] | null;
 
   eyebrow: string | null;
   heading: string | null;
@@ -96,7 +112,7 @@ export type ContentMediaLayout = {
 export type TestimonialsLayout = {
   __typename: "PageSectionsHeroTestimonialsLayout";
 
-  displayType: string[] | null;
+  displayType: string | string[] | null;
 
   eyebrow: string | null;
   heading: string | null;
@@ -110,9 +126,7 @@ export type TestimonialsLayout = {
 
     backgroundImage: MediaEdge;
 
-  buttonText: string | null;
-  buttonLink: string | null;
-};
+} & ActionButtonFields;
 
 export type AreasLayout = {
   __typename:
@@ -132,8 +146,6 @@ export type AreasLayout = {
   backgroundColor: string | null;
   textColor: string | null;
 
-  buttonText: string | null;
-  buttonLink: string | null;
 
   selectedAreas?:
     | {
@@ -143,7 +155,7 @@ export type AreasLayout = {
         }[];
       }
     | null;
-};
+} & ActionButtonFields;
 
 /* =========================================================
    AGENT PROFILE
@@ -183,25 +195,141 @@ export type ClientResourcesLayout = {
   resources: ClientResourceItem[] | null;
 
   backgroundColor: string | null;
+  textColor: string | null;
 };
+
+/* =========================================================
+   FEATURED PROPERTIES
+========================================================= */
 
 export type FeaturedPropertiesLayout = {
   __typename:
     "PageSectionsHeroFeaturedPropertiesLayout";
+
+  /*
+   * Aliased from ACF displayType
+   * to avoid conflicts with other flexible layouts.
+   */
+  propertiesDisplayType:
+    | string
+    | string[]
+    | null;
+
+  showTabs: boolean | null;
+
+  listingStatus:
+    | string
+    | string[]
+    | null;
+
+  showPagination: boolean | null;
 
   heading: string | null;
 
   forSaleTabLabel: string | null;
   soldTabLabel: string | null;
 
+  /*
+   * Slider:
+   * maximum properties loaded into slider.
+   *
+   * Grid + pagination:
+   * properties per page.
+   *
+   * Grid without pagination:
+   * maximum properties displayed.
+   */
   numberToShow: number | null;
-
-  buttonText: string | null;
-  buttonLink: string | null;
 
   backgroundColor: string | null;
   textColor: string | null;
+} & ActionButtonFields;
+
+/* =========================================================
+   CONTACT SECTION
+========================================================= */
+
+export type ContactLayout = {
+  __typename:
+    "PageSectionsHeroContactLayout";
+
+  contactHeading: string | null;
+  contactFormHeading: string | null;
+
+  showForm: boolean | null;
+  showEmail: boolean | null;
+  showPhoneNumber: boolean | null;
+  showAddress: boolean | null;
+  showSocial: boolean | null;
+
+  contactBackgroundImage: MediaEdge;
+
+  contactBackgroundColor:
+    string | null;
+
+  contactTextColor:
+    string | null;
 };
+
+/* =========================================================
+   BLOG
+========================================================= */
+
+export type BlogLayout = {
+  __typename:
+    "PageSectionsHeroBlogLayout";
+
+  eyebrow: string | null;
+
+  heading: string | null;
+
+  blogDescription:
+    | string
+    | null;
+
+  blogDisplayType:
+    | string
+    | string[]
+    | null;
+
+  postsSource:
+    | string
+    | string[]
+    | null;
+
+  selectedPosts: {
+    nodes: BlogPost[];
+  } | null;
+
+  postsToShow:
+    | number
+    | null;
+
+  showPagination:
+    | boolean
+    | null;
+
+  showDate:
+    | boolean
+    | null;
+
+  showExcerpt:
+    | boolean
+    | null;
+
+  showCategory:
+    | boolean
+    | null;
+
+  backgroundColor:
+    | string
+    | null;
+
+  textColor:
+    | string
+    | null;
+} & ActionButtonFields;
+
 /* =========================================================
    SECTION UNION
 ========================================================= */
@@ -213,7 +341,9 @@ export type PageSection =
   | AreasLayout
   | ClientResourcesLayout
   | FeaturedPropertiesLayout
-  | AgentProfileLayout;
+  | AgentProfileLayout
+  | ContactLayout
+  | BlogLayout;
 
 /* =========================================================
    PAGE
@@ -350,6 +480,10 @@ export async function getPageByUri(
                 buttons {
                   buttonLabel
                   buttonLink
+
+                  isContactButton
+                  contactAction
+                  contactPageLink
                 }
               }
 
@@ -378,8 +512,12 @@ export async function getPageByUri(
                 backgroundColor
                 textColor
 
-                buttonText
+                buttonLabel
                 buttonLink
+
+                isContactButton
+                contactAction
+                contactPageLink
               }
 
               # ============================================
@@ -396,8 +534,12 @@ export async function getPageByUri(
                 backgroundColor
                 textColor
 
-                buttonText
+                buttonLabel
                 buttonLink
+
+                isContactButton
+                contactAction
+                contactPageLink
               }
               # ============================================
               # CLIENT RESOURCES
@@ -422,6 +564,7 @@ export async function getPageByUri(
                 }
 
                 backgroundColor
+                textColor
               }
                 
               # ============================================
@@ -429,6 +572,12 @@ export async function getPageByUri(
               # ============================================
 
               ... on PageSectionsHeroFeaturedPropertiesLayout {
+
+                propertiesDisplayType: displayType
+                showTabs
+                listingStatus
+                showPagination
+
                 heading
 
                 forSaleTabLabel
@@ -436,8 +585,12 @@ export async function getPageByUri(
 
                 numberToShow
 
-                buttonText
+                buttonLabel
                 buttonLink
+
+                isContactButton
+                contactAction
+                contactPageLink
 
                 backgroundColor
                 textColor
@@ -459,6 +612,94 @@ export async function getPageByUri(
 
                 agentProfileBackgroundColor: backgroundColor
                 agentProfileTextColor: textColor
+              }
+              # ============================================
+              # CONTACT
+              # ============================================
+
+              ... on PageSectionsHeroContactLayout {
+                contactHeading: heading
+                contactFormHeading: formHeading
+
+                showForm
+                showEmail
+                showPhoneNumber
+                showAddress
+                showSocial
+
+                contactBackgroundImage: backgroundImage {
+                  node {
+                    sourceUrl
+                    mediaItemUrl
+                    altText
+                  }
+                }
+
+                contactBackgroundColor: backgroundColor
+                contactTextColor: textColor
+              }
+              # ============================================
+              # BLOG
+              # ============================================
+
+              ... on PageSectionsHeroBlogLayout {
+
+                eyebrow
+                heading
+
+                blogDescription: description
+
+                blogDisplayType: displayType
+
+                postsSource
+                postsToShow
+
+                showPagination
+                showDate
+                showExcerpt
+                showCategory
+
+                backgroundColor
+                textColor
+
+                buttonLabel
+                buttonLink
+
+                isContactButton
+                contactAction
+                contactPageLink
+
+                selectedPosts {
+                  nodes {
+                    ... on Post {
+                      id
+                      databaseId
+
+                      slug
+                      uri
+
+                      title
+                      date
+                      excerpt
+                      content
+
+                      featuredImage {
+                        node {
+                          sourceUrl
+                          altText
+                        }
+                      }
+
+                      categories {
+                        nodes {
+                          id
+                          name
+                          slug
+                        }
+                      }
+                    }
+                  }
+                }
               }
             }
           }

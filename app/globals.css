@@ -83,3 +83,102 @@ p {
 
   background: #ffffff;
 }
+
+
+/* =========================================================
+   BLOG SINGLE CONTENT
+========================================================= */
+
+.blog-content > *:first-child {
+  margin-top: 0;
+}
+
+.blog-content p {
+  margin-top: 0;
+  margin-bottom: 1.6em;
+}
+
+.blog-content h2,
+.blog-content h3,
+.blog-content h4,
+.blog-content h5,
+.blog-content h6 {
+  font-family: var(--font-heading), serif;
+  color: #111;
+  font-weight: 400;
+  line-height: 1.15;
+}
+
+.blog-content h2 {
+  margin-top: 1.6em;
+  margin-bottom: 0.6em;
+  font-size: clamp(2rem, 4vw, 3rem);
+}
+
+.blog-content h3 {
+  margin-top: 1.5em;
+  margin-bottom: 0.6em;
+  font-size: clamp(1.7rem, 3vw, 2.3rem);
+}
+
+.blog-content h4 {
+  margin-top: 1.4em;
+  margin-bottom: 0.6em;
+  font-size: 1.6rem;
+}
+
+.blog-content ul,
+.blog-content ol {
+  margin: 1.5em 0;
+  padding-left: 1.5rem;
+}
+
+.blog-content ul {
+  list-style: disc;
+}
+
+.blog-content ol {
+  list-style: decimal;
+}
+
+.blog-content li {
+  margin-bottom: 0.6em;
+}
+
+.blog-content a {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.blog-content strong {
+  font-weight: 600;
+  color: #111;
+}
+
+.blog-content blockquote {
+  margin: 2.5rem 0;
+  border-left: 3px solid #b89a55;
+  padding: 0.75rem 0 0.75rem 1.75rem;
+
+  font-family: var(--font-heading), serif;
+  font-size: clamp(1.6rem, 3vw, 2.2rem);
+  line-height: 1.35;
+  color: #222;
+}
+
+.blog-content img {
+  width: 100%;
+  height: auto;
+  margin: 2.5rem 0;
+}
+
+.blog-content figure {
+  margin: 2.5rem 0;
+}
+
+.blog-content figcaption {
+  margin-top: 0.75rem;
+  font-size: 0.75rem;
+  line-height: 1.6;
+  opacity: 0.55;
+}

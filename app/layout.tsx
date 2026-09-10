@@ -10,6 +10,15 @@ import "./globals.css";
 import Header from "./components/layout/Header";
 import Footer from "./components/layout/Footer";
 
+import {
+  getSiteSettings,
+} from "@/app/lib/wordpress/grapgql/site";
+import {
+  ContactModalProvider,
+} from "@/app/components/contact/ContactModalProvider";
+
+import ContactModal from "@/app/components/contact/ContactModal";
+
 const cormorant = Cormorant_Garamond({
   subsets: ["latin"],
   variable: "--font-cormorant",
@@ -39,7 +48,8 @@ const montserrat = Montserrat({
 export const metadata: Metadata = {
   title: "Lou Rosas",
 };
-
+ const settings =
+    await getSiteSettings();
 
 export default function RootLayout({
   children,
@@ -54,10 +64,24 @@ export default function RootLayout({
       `}
     >
       <body>
+         <ContactModalProvider>
         <Header />
 
         {children}
         <Footer />
+
+        <ContactModal
+            contact={
+              settings.contact
+            }
+            social={
+              settings.social
+            }
+            modalSettings={
+               settings.contactModal
+            }
+          />
+        </ContactModalProvider>
       </body>
     </html>
   );

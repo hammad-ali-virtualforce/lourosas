@@ -16,6 +16,7 @@ type ClientResourcesSectionProps = {
 
 function ResourceCard({
   resource,
+  textColor,
 }: {
   resource: ClientResourceItem;
 }) {
@@ -149,6 +150,8 @@ function ResourceCard({
 
                 lg:text-[29px]
               "
+              style={{
+            color: `${textColor}`}}
             >
               {resource.title}
             </h3>
@@ -174,6 +177,9 @@ export default function ClientResourcesSection({
   const backgroundColor =
     section.backgroundColor ||
     "#ffffff";
+    const textColor =
+    section.textColor ||
+    "#222";
 
   if (
     !section.heading &&
@@ -310,6 +316,7 @@ export default function ClientResourcesSection({
                 <ResourceCard
                   key={`${resource.title}-${index}`}
                   resource={resource}
+                  textColor={textColor}
                 />
               )
             )}

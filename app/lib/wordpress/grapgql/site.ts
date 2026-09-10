@@ -1,7 +1,12 @@
 import { graphqlRequest } from "./graphql";
 
+/* =========================================================
+   MEDIA
+========================================================= */
+
 type MediaNode = {
   sourceUrl: string;
+  mediaItemUrl?: string | null;
   altText: string;
 };
 
@@ -9,20 +14,59 @@ type MediaImage = {
   node: MediaNode | null;
 } | null;
 
-type SocialItem = {
-  icon: string;
+/* =========================================================
+   SOCIAL
+========================================================= */
+
+type ACFSelectValue =
+  | string
+  | string[]
+  | {
+      value?: string | null;
+      label?: string | null;
+    }
+  | null;
+
+export type SocialItem = {
+  icon: ACFSelectValue;
   label: string;
   link: string;
 };
+
+/* =========================================================
+   FOOTER
+========================================================= */
 
 type LegalLink = {
   legalText: string;
   legalLinks: string;
 };
 
+/* =========================================================
+   CONTACT MODAL
+========================================================= */
+
+export type ContactModalSettings = {
+  backgroundImage: MediaImage;
+
+  detailsHeading: string | null;
+  formHeading: string | null;
+
+  showForm: boolean | null;
+  showEmail: boolean | null;
+  showPhoneNumber: boolean | null;
+  showAddress: boolean | null;
+  showSocial: boolean | null;
+};
+
+/* =========================================================
+   SITE SETTINGS
+========================================================= */
+
 export type SiteSettings = {
   branding: {
     siteName: string;
+
     primaryLogo: MediaImage;
     lightLogo: MediaImage;
     footerLogo: MediaImage;
@@ -33,9 +77,12 @@ export type SiteSettings = {
     agentName: string;
     jobTitle: string;
     licenseNumber: string;
+
     email: string;
+
     mobilePhone: string;
     officePhone: string;
+
     brokerageName: string;
     address: string;
   };
@@ -43,6 +90,7 @@ export type SiteSettings = {
   header: {
     headerLogo: MediaImage;
     headerLightLogo: MediaImage;
+
     headerBackground: string;
     headerText: string;
   };
@@ -50,6 +98,12 @@ export type SiteSettings = {
   social: {
     socialMedia: SocialItem[];
   };
+
+  /* =======================================================
+     CONTACT MODAL
+  ======================================================= */
+
+  contactModal: ContactModalSettings | null;
 
   footer: {
     heading: string;
@@ -63,25 +117,40 @@ export type SiteSettings = {
     disclaimerText1: string;
     disclaimerText2: string;
     disclaimerCopyright: string;
+
     websiteCopyright: string;
     privacyLink: string;
   };
 };
 
+/* =========================================================
+   RESPONSE
+========================================================= */
+
 type SiteSettingsResponse = {
   siteSettings: SiteSettings;
 };
+
+/* =========================================================
+   GET SITE SETTINGS
+========================================================= */
 
 export async function getSiteSettings() {
   const query = `
     query GetSiteSettings {
       siteSettings {
+
+        # ============================================
+        # BRANDING
+        # ============================================
+
         branding {
           siteName
 
           primaryLogo {
             node {
               sourceUrl
+              mediaItemUrl
               altText
             }
           }
@@ -89,6 +158,7 @@ export async function getSiteSettings() {
           lightLogo {
             node {
               sourceUrl
+              mediaItemUrl
               altText
             }
           }
@@ -96,6 +166,7 @@ export async function getSiteSettings() {
           footerLogo {
             node {
               sourceUrl
+              mediaItemUrl
               altText
             }
           }
@@ -103,26 +174,39 @@ export async function getSiteSettings() {
           favicon {
             node {
               sourceUrl
+              mediaItemUrl
               altText
             }
           }
         }
 
+        # ============================================
+        # CONTACT
+        # ============================================
+
         contact {
           agentName
           jobTitle
           licenseNumber
+
           email
+
           mobilePhone
           officePhone
+
           brokerageName
           address
         }
+
+        # ============================================
+        # HEADER
+        # ============================================
 
         header {
           headerLogo {
             node {
               sourceUrl
+              mediaItemUrl
               altText
             }
           }
@@ -130,6 +214,7 @@ export async function getSiteSettings() {
           headerLightLogo {
             node {
               sourceUrl
+              mediaItemUrl
               altText
             }
           }
@@ -137,6 +222,10 @@ export async function getSiteSettings() {
           headerBackground
           headerText
         }
+
+        # ============================================
+        # SOCIAL
+        # ============================================
 
         social {
           socialMedia {
@@ -146,6 +235,33 @@ export async function getSiteSettings() {
           }
         }
 
+        # ============================================
+        # CONTACT MODAL
+        # ============================================
+
+        contactModal {
+          backgroundImage {
+            node {
+              sourceUrl
+              mediaItemUrl
+              altText
+            }
+          }
+
+          detailsHeading
+          formHeading
+
+          showForm
+          showEmail
+          showPhoneNumber
+          showAddress
+          showSocial
+        }
+
+        # ============================================
+        # FOOTER
+        # ============================================
+
         footer {
           heading
           description
@@ -153,6 +269,7 @@ export async function getSiteSettings() {
           realtorLogo {
             node {
               sourceUrl
+              mediaItemUrl
               altText
             }
           }
@@ -160,18 +277,21 @@ export async function getSiteSettings() {
           brokerageLogo {
             node {
               sourceUrl
+              mediaItemUrl
               altText
             }
           }
 
           legalLinks {
             legalText
-            legalLink
+
+            legalLinks: legalLink
           }
 
           disclaimerText1
           disclaimerText2
           disclaimerCopyright
+
           websiteCopyright
           privacyLink
         }
@@ -179,10 +299,11 @@ export async function getSiteSettings() {
     }
   `;
 
-  const data = await graphqlRequest<SiteSettingsResponse>({
-    query,
-    revalidate: 3600,
-  });
+  const data =
+    await graphqlRequest<SiteSettingsResponse>({
+      query,
+      revalidate: 3600,
+    });
 
   return data.siteSettings;
 }

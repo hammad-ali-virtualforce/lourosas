@@ -3,7 +3,10 @@ import { ArrowUpRight } from "lucide-react";
 
 import type {
   ContentMediaLayout,
+  ContentMediaButton,
 } from "@/app/lib/wordpress/grapgql/pages";
+
+import ActionButton from "@/app/components/common/ActionButton";
 
 type ContentMediaSectionProps = {
   section: ContentMediaLayout;
@@ -17,14 +20,27 @@ type ContentMediaSectionProps = {
 ========================================================= */
 
 function getOption(
-  value: string[] | null | undefined,
+  value:
+    | string
+    | string[]
+    | null
+    | undefined,
   fallback: string
 ) {
-  if (!value?.length) {
+  if (!value) {
     return fallback;
   }
 
-  return String(value[0])
+  const option =
+    Array.isArray(value)
+      ? value[0]
+      : value;
+
+  if (!option) {
+    return fallback;
+  }
+
+  return String(option)
     .trim()
     .toLowerCase()
     .replace(/\s+/g, "_")
@@ -36,7 +52,10 @@ function getOption(
 ========================================================= */
 
 function getImagePosition(
-  value: string[] | null
+  value:
+    | string
+    | string[]
+    | null
 ) {
   const position = getOption(
     value,
@@ -67,8 +86,11 @@ function getImagePosition(
 ========================================================= */
 
 function getContentWidth(
-  value: string[] | null
-) {
+  value:
+    | string
+    | string[]
+    | null
+){
   const width = getOption(
     value,
     "medium"
@@ -96,7 +118,10 @@ function getContentWidth(
 ========================================================= */
 
 function getLayout(
-  value: string[] | null
+  value:
+    | string
+    | string[]
+    | null
 ) {
   const layout = getOption(
     value,
@@ -733,22 +758,56 @@ function Content({
    BUTTONS
 ========================================================= */
 
+/* =========================================================
+   BUTTONS
+========================================================= */
+
 function Buttons({
   buttons,
   centered = false,
 }: {
-  buttons: {
-    buttonLabel: string | null;
-    buttonLink: string | null;
-  }[];
+  buttons: ContentMediaButton[];
 
   centered?: boolean;
 }) {
+  /*
+   * IMPORTANT:
+   *
+   * Normal button:
+   * needs buttonLabel + buttonLink
+   *
+   * Contact button:
+   * only needs buttonLabel.
+   * Modal buttons do NOT need buttonLink.
+   */
+
   const validButtons =
     buttons.filter(
-      (button) =>
-        button.buttonLabel &&
-        button.buttonLink
+      (button) => {
+        if (
+          !button.buttonLabel
+        ) {
+          return false;
+        }
+
+        /*
+         * Contact button can work
+         * without buttonLink.
+         */
+        if (
+          button.isContactButton
+        ) {
+          return true;
+        }
+
+        /*
+         * Normal button must have
+         * normal link.
+         */
+        return Boolean(
+          button.buttonLink
+        );
+      }
     );
 
   if (!validButtons.length) {
@@ -772,11 +831,9 @@ function Buttons({
     >
       {validButtons.map(
         (button, index) => (
-          <a
+          <ActionButton
             key={`${button.buttonLabel}-${index}`}
-            href={
-              button.buttonLink!
-            }
+            button={button}
             className="
               group
               inline-flex
@@ -818,7 +875,7 @@ function Buttons({
                 group-hover:-translate-y-1
               "
             />
-          </a>
+          </ActionButton>
         )
       )}
     </div>

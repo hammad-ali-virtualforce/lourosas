@@ -7,6 +7,7 @@ import {
   ChevronLeft,
   ChevronRight,
   Star,
+  ArrowUpRight,
 } from "lucide-react";
 
 import {
@@ -14,7 +15,9 @@ import {
   SwiperSlide,
 } from "swiper/react";
 
-import type { Swiper as SwiperType } from "swiper";
+import type {
+  Swiper as SwiperType,
+} from "swiper";
 
 import "swiper/css";
 
@@ -26,6 +29,12 @@ import type {
   Testimonial,
 } from "@/app/lib/wordpress/grapgql/testimonials";
 
+import ActionButton from "@/app/components/common/ActionButton";
+
+/* =========================================================
+   PROPS
+========================================================= */
+
 type TestimonialsSectionProps = {
   section: TestimonialsLayout;
   testimonials: Testimonial[];
@@ -36,16 +45,21 @@ type TestimonialsSectionProps = {
 ========================================================= */
 
 function getOption(
-  value: string | string[] | null | undefined,
+  value:
+    | string
+    | string[]
+    | null
+    | undefined,
   fallback: string
 ) {
   if (!value) {
     return fallback;
   }
 
-  const option = Array.isArray(value)
-    ? value[0]
-    : value;
+  const option =
+    Array.isArray(value)
+      ? value[0]
+      : value;
 
   if (!option) {
     return fallback;
@@ -70,12 +84,16 @@ function getImageUrl(
   );
 }
 
-function getInitials(name: string) {
+function getInitials(
+  name: string
+) {
   return name
     .split(" ")
     .filter(Boolean)
     .slice(0, 2)
-    .map((word) => word.charAt(0))
+    .map((word) =>
+      word.charAt(0)
+    )
     .join("")
     .toUpperCase();
 }
@@ -84,7 +102,9 @@ function truncateText(
   text: string,
   maxLength = 290
 ) {
-  if (text.length <= maxLength) {
+  if (
+    text.length <= maxLength
+  ) {
     return text;
   }
 
@@ -100,15 +120,21 @@ function truncateText(
 function Rating({
   value,
 }: {
-  value: number | null | undefined;
+  value:
+    | number
+    | null
+    | undefined;
 }) {
-  const rating = Math.max(
-    0,
-    Math.min(
-      5,
-      Math.round(value ?? 5)
-    )
-  );
+  const rating =
+    Math.max(
+      0,
+      Math.min(
+        5,
+        Math.round(
+          value ?? 5
+        )
+      )
+    );
 
   if (!rating) {
     return null;
@@ -125,14 +151,16 @@ function Rating({
     >
       {Array.from({
         length: rating,
-      }).map((_, index) => (
-        <Star
-          key={index}
-          size={13}
-          strokeWidth={1}
-          className="fill-current"
-        />
-      ))}
+      }).map(
+        (_, index) => (
+          <Star
+            key={index}
+            size={13}
+            strokeWidth={1}
+            className="fill-current"
+          />
+        )
+      )}
     </div>
   );
 }
@@ -147,7 +175,9 @@ function ClientAvatar({
   testimonial: Testimonial;
 }) {
   const imageUrl =
-    getImageUrl(testimonial);
+    getImageUrl(
+      testimonial
+    );
 
   if (imageUrl) {
     return (
@@ -232,14 +262,15 @@ function SliderTestimonialCard({
 
   cardColor: string;
   textColor: string;
-
 }) {
   const details =
-    testimonial.testimonialDetails;
+    testimonial
+      .testimonialDetails;
 
   const testimonialText =
-    details?.testimonialText || "";
-
+    details
+      ?.testimonialText ||
+    "";
 
   return (
     <article
@@ -293,14 +324,19 @@ function SliderTestimonialCard({
         }
       `}
       style={{
-        backgroundColor: cardColor,
-        color: textColor,
+        backgroundColor:
+          cardColor,
+
+        color:
+          textColor,
       }}
     >
       {/* AVATAR */}
 
       <ClientAvatar
-        testimonial={testimonial}
+        testimonial={
+          testimonial
+        }
       />
 
       {/* CLIENT NAME */}
@@ -308,6 +344,7 @@ function SliderTestimonialCard({
       <h3
         className="
           mt-7
+
           font-heading
           text-[20px]
           font-medium
@@ -326,14 +363,18 @@ function SliderTestimonialCard({
         <div
           className="
             mt-2
+
             font-body
             text-[9px]
             uppercase
             tracking-[0.2em]
+
             opacity-50
           "
         >
-          {details.clientMeta}
+          {
+            details.clientMeta
+          }
         </div>
       )}
 
@@ -361,10 +402,6 @@ function SliderTestimonialCard({
           290
         )}
       </p>
-
-      {/* BUTTON - ONLY ACTIVE CARD */}
-
-      
     </article>
   );
 }
@@ -383,7 +420,8 @@ function NormalTestimonialCard({
   textColor: string;
 }) {
   const details =
-    testimonial.testimonialDetails;
+    testimonial
+      .testimonialDetails;
 
   return (
     <article
@@ -397,15 +435,21 @@ function NormalTestimonialCard({
         shadow-[0_4px_25px_rgba(0,0,0,0.06)]
 
         sm:p-10
+
         lg:p-12
       "
       style={{
-        backgroundColor: cardColor,
-        color: textColor,
+        backgroundColor:
+          cardColor,
+
+        color:
+          textColor,
       }}
     >
       <Rating
-        value={details?.rating}
+        value={
+          details?.rating
+        }
       />
 
       <blockquote
@@ -422,7 +466,10 @@ function NormalTestimonialCard({
         "
       >
         “
-        {details?.testimonialText}
+        {
+          details
+            ?.testimonialText
+        }
         ”
       </blockquote>
 
@@ -447,7 +494,9 @@ function NormalTestimonialCard({
               text-[20px]
             "
           >
-            {testimonial.title}
+            {
+              testimonial.title
+            }
           </div>
 
           {details?.clientMeta && (
@@ -463,7 +512,9 @@ function NormalTestimonialCard({
                 opacity-50
               "
             >
-              {details.clientMeta}
+              {
+                details.clientMeta
+              }
             </div>
           )}
         </div>
@@ -496,22 +547,26 @@ export default function TestimonialsSection({
     );
 
   const isSlider =
-    displayType === "slider";
+    displayType ===
+    "slider";
 
   /* =======================================================
      TESTIMONIAL DATA
   ======================================================= */
 
-  const limit = Math.max(
-    1,
-    Number(
-      section.numberToShow
-    ) || 6
-  );
+  const limit =
+    Math.max(
+      1,
+      Number(
+        section.numberToShow
+      ) || 6
+    );
 
   let items =
     testimonials.filter(
-      (testimonial) =>
+      (
+        testimonial
+      ) =>
         Boolean(
           testimonial
             .testimonialDetails
@@ -519,19 +574,26 @@ export default function TestimonialsSection({
         )
     );
 
-  if (section.featuredOnly) {
-    items = items.filter(
-      (testimonial) =>
-        testimonial
-          .testimonialDetails
-          ?.featured === true
-    );
+  if (
+    section.featuredOnly
+  ) {
+    items =
+      items.filter(
+        (
+          testimonial
+        ) =>
+          testimonial
+            .testimonialDetails
+            ?.featured ===
+          true
+      );
   }
 
-  items = items.slice(
-    0,
-    limit
-  );
+  items =
+    items.slice(
+      0,
+      limit
+    );
 
   if (!items.length) {
     return null;
@@ -542,7 +604,8 @@ export default function TestimonialsSection({
   ======================================================= */
 
   /*
-   * Background Color controls individual testimonial cards.
+   * backgroundColor controls
+   * testimonial cards.
    */
 
   const cardColor =
@@ -558,20 +621,39 @@ export default function TestimonialsSection({
   ======================================================= */
 
   const backgroundImageUrl =
-    section.backgroundImage?.node
-      ?.sourceUrl ||
-    section.backgroundImage?.node
-      ?.mediaItemUrl ||
+    section.backgroundImage
+      ?.node?.sourceUrl ||
+    section.backgroundImage
+      ?.node?.mediaItemUrl ||
     null;
 
   /* =======================================================
      SECTION BUTTON
   ======================================================= */
 
+  /*
+   * Normal button:
+   * buttonLabel + buttonLink
+   *
+   * Contact button:
+   * buttonLabel is enough.
+   * ActionButton handles modal/page.
+   */
+
   const hasButton =
-    Boolean(section.buttonText) &&
-    Boolean(section.buttonLink);
-console.log("TESTIMONIAL SECTION:", section);
+    Boolean(
+      section.buttonLabel
+    ) &&
+    (
+      Boolean(
+        section
+          .isContactButton
+      ) ||
+      Boolean(
+        section.buttonLink
+      )
+    );
+
   return (
     <section
       className="
@@ -638,10 +720,7 @@ console.log("TESTIMONIAL SECTION:", section);
       )}
 
       {/* =================================================
-          TOP WHITE FADE / SHADOW
-
-          Strong white at top.
-          Background becomes more visible toward bottom.
+          TOP WHITE FADE
       ================================================= */}
 
       {backgroundImageUrl && (
@@ -698,6 +777,8 @@ console.log("TESTIMONIAL SECTION:", section);
           text-center
         "
       >
+        {/* EYEBROW */}
+
         {section.eyebrow && (
           <p
             className="
@@ -714,14 +795,19 @@ console.log("TESTIMONIAL SECTION:", section);
               md:text-[10px]
             "
           >
-            {section.eyebrow}
+            {
+              section.eyebrow
+            }
           </p>
         )}
+
+        {/* HEADING */}
 
         {section.heading && (
           <h2
             className="
               font-heading
+
               text-[44px]
               font-light
               uppercase
@@ -735,9 +821,13 @@ console.log("TESTIMONIAL SECTION:", section);
               lg:text-[62px]
             "
           >
-            {section.heading}
+            {
+              section.heading
+            }
           </h2>
         )}
+
+        {/* DESCRIPTION */}
 
         {section.description && (
           <p
@@ -756,7 +846,9 @@ console.log("TESTIMONIAL SECTION:", section);
               md:text-[15px]
             "
           >
-            {section.description}
+            {
+              section.description
+            }
           </p>
         )}
       </div>
@@ -778,7 +870,9 @@ console.log("TESTIMONIAL SECTION:", section);
           "
         >
           <Swiper
-            onSwiper={(swiper) => {
+            onSwiper={(
+              swiper
+            ) => {
               swiperRef.current =
                 swiper;
             }}
@@ -873,6 +967,7 @@ console.log("TESTIMONIAL SECTION:", section);
             <div
               className="
                 mt-8
+
                 flex
                 items-center
                 justify-center
@@ -881,11 +976,14 @@ console.log("TESTIMONIAL SECTION:", section);
                 md:mt-9
               "
             >
+              {/* PREVIOUS */}
+
               <button
                 type="button"
                 aria-label="Previous testimonial"
                 onClick={() =>
-                  swiperRef.current?.slidePrev()
+                  swiperRef.current
+                    ?.slidePrev()
                 }
                 className="
                   flex
@@ -912,11 +1010,14 @@ console.log("TESTIMONIAL SECTION:", section);
                 />
               </button>
 
+              {/* NEXT */}
+
               <button
                 type="button"
                 aria-label="Next testimonial"
                 onClick={() =>
-                  swiperRef.current?.slideNext()
+                  swiperRef.current
+                    ?.slideNext()
                 }
                 className="
                   flex
@@ -975,7 +1076,9 @@ console.log("TESTIMONIAL SECTION:", section);
           "
         >
           {items.map(
-            (testimonial) => (
+            (
+              testimonial
+            ) => (
               <NormalTestimonialCard
                 key={
                   testimonial.id
@@ -996,103 +1099,81 @@ console.log("TESTIMONIAL SECTION:", section);
       )}
 
       {/* =================================================
-          NORMAL MODE VIEW ALL BUTTON
+          SECTION BUTTON
 
-          Slider button is inside active testimonial card.
+          IMPORTANT:
+          Only ONE button.
+          Works for both slider and grid.
+
+          Normal → buttonLink
+          Contact → modal
+          Contact → contact page
       ================================================= */}
 
-      {!isSlider &&
-        hasButton && (
-          <div
+      {hasButton && (
+        <div
+          className="
+            relative
+            z-20
+
+            mt-12
+
+            flex
+            justify-center
+
+            px-5
+          "
+        >
+          <ActionButton
+            button={section}
             className="
-              relative
-              z-20
+              group
 
-              mt-12
-
-              flex
-              justify-center
-            "
-          >
-            <a
-              href={
-                section.buttonLink!
-              }
-              className="
-                inline-flex
-                min-h-[55px]
-                min-w-[210px]
-                items-center
-                justify-center
-
-                bg-[#b89a55]
-                px-8
-
-                font-body
-                text-[10px]
-                font-semibold
-                uppercase
-                tracking-[0.18em]
-                text-white
-
-                transition-all
-                duration-300
-
-                hover:bg-[#222]
-              "
-            >
-              {
-                section.buttonText
-              }
-            </a>
-          </div>
-        )}
-        {/* =================================================
-    SECTION VIEW ALL BUTTON
-================================================= */}
-
-{hasButton && (
-  <div
-    className="
-      relative
-      z-20
-      mt-12
-      flex
-      justify-center
-      px-5
-    "
-  >
-    <a
-      href={section.buttonLink!}
-      className="
-       group
               inline-flex
               min-h-[54px]
+              min-w-[210px]
+
               items-center
               justify-center
               gap-3
 
               bg-[#b89a55]
               px-8
-              mt-4
 
               font-body
               text-[10px]
               font-semibold
               uppercase
               tracking-[0.2em]
+
               text-white
 
               transition-all
               duration-300
 
               hover:bg-[#222]
-      "
-    >
-      {section.buttonText}
-    </a>
-  </div>
-)}
+            "
+          >
+            <span>
+              {
+                section.buttonLabel
+              }
+            </span>
+
+            <ArrowUpRight
+              size={14}
+              strokeWidth={1.4}
+              className="
+                transition-transform
+                duration-300
+
+                group-hover:translate-x-1
+                group-hover:-translate-y-1
+              "
+            />
+          </ActionButton>
+        </div>
+      )}
     </section>
   );
 }
