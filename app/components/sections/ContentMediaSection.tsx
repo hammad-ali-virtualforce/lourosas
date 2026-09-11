@@ -250,6 +250,25 @@ const shouldShowStats =
         rgba(255,255,255,1) 100%
       )
     `;
+    const mobileGradient = imageRight
+    ? `
+      linear-gradient(
+        to left,
+        rgba(255,255,255,0) 0%,
+        rgba(255,255,255,.7) 14%,
+        rgba(255,255,255,1) 60%,
+        rgba(255,255,255,1) 100%
+      )
+    `
+    : `
+      linear-gradient(
+        to right,
+        rgba(255,255,255,0) 0%,
+        rgba(255,255,255,.7) 14%,
+        rgba(255,255,255,1) 60%,
+        rgba(255,255,255,1) 100%
+      )
+    `;
 
   /* =======================================================
      TEXT ONLY
@@ -458,6 +477,10 @@ const shouldShowStats =
               bg-white/80
               lg:hidden
             "
+             style={{
+              background:
+                mobileGradient,
+            }}
           />
         )}
 
@@ -559,7 +582,8 @@ const shouldShowStats =
               sm:py-[85px]
 
               md:px-14
-
+              bg-white/50
+              md:bg-transparent
               lg:px-[5vw]
               lg:py-[85px]
 

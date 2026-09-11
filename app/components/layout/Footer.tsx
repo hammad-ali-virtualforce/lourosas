@@ -612,7 +612,7 @@ export default async function Footer() {
           {/* Social */}
 
           {social.socialMedia?.length > 0 && (
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-3 justify-center">
                 {social.socialMedia.map((item, index) => {
                   const rawIcon: unknown = item.icon;
 

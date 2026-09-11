@@ -719,6 +719,7 @@ export default function BlogSectionClient({
           </ActionButton>
         </div>
       )}
+      <div className="border-b-5 border-[#b89a55] py-5"></div>
     </section>
   );
 }
