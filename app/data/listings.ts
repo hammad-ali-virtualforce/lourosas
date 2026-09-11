@@ -11,7 +11,7 @@ export type ListingStatus =
 ========================================================= */
 
 export type Listing = {
-  id: number;
+   id: number;
 
   title: string;
   address: string;
@@ -19,7 +19,16 @@ export type Listing = {
 
   beds?: number | null;
   baths?: number | null;
+
+  rooms?: number | null;
+
   sqft?: string | null;
+  lotSize?: string | null;
+
+  parking?: string | null;
+  yearBuilt?: number | null;
+
+  propertyType?: string | null;
 
   description?: string | null;
 
@@ -36,30 +45,46 @@ export type Listing = {
 
 export const listings: Listing[] = [
   {
-    id: 1,
+  id: 1,
 
-    title:
-      "Houston Commercial Property",
+  title:
+    "Houston Commercial Property",
 
-    address:
-      "3630 Willowick, Houston, TX 77019",
+  address:
+    "7410 Westview Dr, Houston, TX 77055",
 
-    price:
-      "PRICE UPON REQUEST",
+  price:
+    "$1,250,000",
 
-    beds: null,
-    baths: null,
-    sqft: null,
+  beds: 4,
+  baths: 3.5,
 
-    image:
-      "/images/listings/listing-1.webp",
+  rooms: 8,
 
-    status:
-      "sold",
+  sqft:
+    "3,850",
 
-    url:
-      "/properties/houston-commercial-property-1/",
-  },
+  lotSize:
+    "0.42 Acres",
+
+  parking:
+    "2 Cars",
+
+  yearBuilt:
+    2018,
+
+  propertyType:
+    "Single Family",
+
+  image:
+    "/images/listings/listing-1.webp",
+
+  status:
+    "for_sale",
+
+  url:
+    "/properties/houston-commercial-property-1/",
+},
 
   {
     id: 2,
@@ -73,9 +98,25 @@ export const listings: Listing[] = [
     price:
       "PRICE UPON REQUEST",
 
-    beds: 6,
-    baths: 8,
-    sqft: "8,192",
+   beds: 4,
+  baths: 3.5,
+
+  rooms: 8,
+
+  sqft:
+    "3,850",
+
+  lotSize:
+    "0.42 Acres",
+
+  parking:
+    "2 Cars",
+
+  yearBuilt:
+    2018,
+
+  propertyType:
+    "Single Family",
 
     image:
       "/images/listings/listing-2.webp",
@@ -99,9 +140,25 @@ export const listings: Listing[] = [
     price:
       "PRICE UPON REQUEST",
 
-    beds: 5,
-    baths: 7,
-    sqft: "7,860",
+    beds: 4,
+  baths: 3.5,
+
+  rooms: 8,
+
+  sqft:
+    "3,850",
+
+  lotSize:
+    "0.42 Acres",
+
+  parking:
+    "2 Cars",
+
+  yearBuilt:
+    2018,
+
+  propertyType:
+    "Single Family",
 
     image:
       "/images/listings/listing-3.webp",
@@ -125,9 +182,25 @@ export const listings: Listing[] = [
     price:
       "$1,950,000",
 
-    beds: null,
-    baths: null,
-    sqft: null,
+    beds: 4,
+  baths: 3.5,
+
+  rooms: 8,
+
+  sqft:
+    "3,850",
+
+  lotSize:
+    "0.42 Acres",
+
+  parking:
+    "2 Cars",
+
+  yearBuilt:
+    2018,
+
+  propertyType:
+    "Single Family",
 
     image:
       "/images/listings/listing-4.webp",
@@ -151,9 +224,25 @@ export const listings: Listing[] = [
     price:
       "$2,400,000",
 
-    beds: null,
-    baths: null,
-    sqft: null,
+    beds: 4,
+  baths: 3.5,
+
+  rooms: 8,
+
+  sqft:
+    "3,850",
+
+  lotSize:
+    "0.42 Acres",
+
+  parking:
+    "2 Cars",
+
+  yearBuilt:
+    2018,
+
+  propertyType:
+    "Single Family",
 
     image:
       "/images/listings/listing-1.webp",
@@ -177,10 +266,25 @@ export const listings: Listing[] = [
     price:
       "$1,750,000",
 
-    beds: null,
-    baths: null,
-    sqft: null,
+   beds: 4,
+  baths: 3.5,
 
+  rooms: 8,
+
+  sqft:
+    "3,850",
+
+  lotSize:
+    "0.42 Acres",
+
+  parking:
+    "2 Cars",
+
+  yearBuilt:
+    2018,
+
+  propertyType:
+    "Single Family",
     image:
       "/images/listings/listing-2.webp",
 
@@ -202,10 +306,25 @@ export const listings: Listing[] = [
 
     price:
       "PRICE UPON REQUEST",
+beds: 4,
+  baths: 3.5,
 
-    beds: null,
-    baths: null,
-    sqft: null,
+  rooms: 8,
+
+  sqft:
+    "3,850",
+
+  lotSize:
+    "0.42 Acres",
+
+  parking:
+    "2 Cars",
+
+  yearBuilt:
+    2018,
+
+  propertyType:
+    "Single Family",
 
     image:
       "/images/listings/listing-1.webp",
@@ -229,9 +348,25 @@ export const listings: Listing[] = [
     price:
       "PRICE UPON REQUEST",
 
-    beds: 6,
-    baths: 8,
-    sqft: "8,192",
+   beds: 4,
+  baths: 3.5,
+
+  rooms: 8,
+
+  sqft:
+    "3,850",
+
+  lotSize:
+    "0.42 Acres",
+
+  parking:
+    "2 Cars",
+
+  yearBuilt:
+    2018,
+
+  propertyType:
+    "Single Family",
 
     image:
       "/images/listings/listing-2.webp",
@@ -255,9 +390,25 @@ export const listings: Listing[] = [
     price:
       "PRICE UPON REQUEST",
 
-    beds: 5,
-    baths: 7,
-    sqft: "7,860",
+    beds: 4,
+  baths: 3.5,
+
+  rooms: 8,
+
+  sqft:
+    "3,850",
+
+  lotSize:
+    "0.42 Acres",
+
+  parking:
+    "2 Cars",
+
+  yearBuilt:
+    2018,
+
+  propertyType:
+    "Single Family",
 
     image:
       "/images/listings/listing-3.webp",
@@ -281,9 +432,25 @@ export const listings: Listing[] = [
     price:
       "$1,950,000",
 
-    beds: null,
-    baths: null,
-    sqft: null,
+   beds: 4,
+  baths: 3.5,
+
+  rooms: 8,
+
+  sqft:
+    "3,850",
+
+  lotSize:
+    "0.42 Acres",
+
+  parking:
+    "2 Cars",
+
+  yearBuilt:
+    2018,
+
+  propertyType:
+    "Single Family",
 
     image:
       "/images/listings/listing-4.webp",
@@ -307,10 +474,25 @@ export const listings: Listing[] = [
     price:
       "$2,400,000",
 
-    beds: null,
-    baths: null,
-    sqft: null,
+   beds: 4,
+  baths: 3.5,
 
+  rooms: 8,
+
+  sqft:
+    "3,850",
+
+  lotSize:
+    "0.42 Acres",
+
+  parking:
+    "2 Cars",
+
+  yearBuilt:
+    2018,
+
+  propertyType:
+    "Single Family",
     image:
       "/images/listings/listing-1.webp",
 
@@ -333,9 +515,25 @@ export const listings: Listing[] = [
     price:
       "$1,750,000",
 
-    beds: null,
-    baths: null,
-    sqft: null,
+    beds: 4,
+  baths: 3.5,
+
+  rooms: 8,
+
+  sqft:
+    "3,850",
+
+  lotSize:
+    "0.42 Acres",
+
+  parking:
+    "2 Cars",
+
+  yearBuilt:
+    2018,
+
+  propertyType:
+    "Single Family",
 
     image:
       "/images/listings/listing-2.webp",

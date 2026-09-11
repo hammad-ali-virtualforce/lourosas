@@ -550,6 +550,32 @@ export default async function Footer() {
               </span>
             )}
 
+            
+          </div>
+          <div className="
+              flex
+              flex-wrap
+              items-center
+              justify-center
+              gap-2
+              font-body
+              text-[13px]
+            ">
+            {footer.termsLink && (
+              <>
+                <Link
+                  href={footer.termsLink}
+                  className="
+                    font-semibold
+                    text-[#b89852]
+                    underline
+                    underline-offset-4
+                  "
+                >
+                  Terms of Use
+                </Link>
+              </>
+            )}
             {footer.privacyLink && (
               <>
                 <span>|</span>
@@ -565,10 +591,24 @@ export default async function Footer() {
                 >
                   Privacy Policy
                 </Link>
+                <span>|</span>
+              </>
+            )}
+            {footer.fhslink && (
+              <><Link
+                  href={footer.fhslink}
+                  className="
+                    font-semibold
+                    text-[#b89852]
+                    underline
+                    underline-offset-4
+                  "
+                >
+                  Fair Housing Statement
+                </Link>
               </>
             )}
           </div>
-
           {/* Social */}
 
           {social.socialMedia?.length > 0 && (

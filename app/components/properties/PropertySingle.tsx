@@ -4,12 +4,19 @@ import Image from "next/image";
 import Link from "next/link";
 
 import {
-  Bath,
+   Bath,
   BedDouble,
   MapPin,
   Maximize2,
   Tag,
+  DoorOpen,
+  Car,
+  Ruler,
+  CalendarDays,
+  House,
 } from "lucide-react";
+
+
 
 import {
   listings,
@@ -91,62 +98,97 @@ function DetailItem({
     <div
       className="
         flex
-        min-h-[125px]
-        flex-col
+        min-h-[115px]
         items-center
-        justify-center
+        gap-5
 
-        border-b
-        border-black/10
-
-        px-5
+        px-3
         py-6
 
-        text-center
+        sm:px-5
 
-        sm:border-b-0
-        sm:border-r
-        sm:last:border-r-0
+        lg:px-7
       "
     >
-      <div className="text-[#b89a55]">
+      {/* ===============================================
+          GOLD CIRCLE ICON
+      =============================================== */}
+
+      <div
+        className="
+          flex
+          h-[50px]
+          w-[50px]
+          shrink-0
+
+          items-center
+          justify-center
+
+          rounded-full
+
+          bg-[#b89a55]
+
+          text-white
+
+          md:h-[52px]
+          md:w-[52px]
+        "
+      >
         {icon}
       </div>
 
-      <div
-        className="
-          mt-3
-
-          font-heading
-          text-[23px]
-          font-medium
-          leading-tight
-
-          text-[#111]
-        "
-      >
-        {value}
-      </div>
+      {/* ===============================================
+          VALUE + LABEL
+      =============================================== */}
 
       <div
         className="
-          mt-2
-
-          font-body
-          text-[9px]
-          font-semibold
-          uppercase
-          tracking-[0.18em]
-
-          text-black/45
+          min-w-0
         "
       >
-        {label}
+        <div
+          className="
+            font-body
+
+            text-[15px]
+            font-medium
+            uppercase
+            leading-[1.2]
+
+            tracking-[0.01em]
+
+            text-[#111]
+
+            md:text-[16px]
+          "
+        >
+          {value}
+        </div>
+
+        <div
+          className="
+            mt-[9px]
+
+            font-body
+
+            text-[9px]
+            font-medium
+            uppercase
+            leading-[1.3]
+
+            tracking-[0.12em]
+
+            text-black/50
+
+            md:text-[10px]
+          "
+        >
+          {label}
+        </div>
       </div>
     </div>
   );
 }
-
 /* =========================================================
    RELATED PROPERTY CARD
 ========================================================= */
@@ -595,103 +637,190 @@ export default function PropertySingle({
           PROPERTY DETAILS
       ================================================= */}
 
-      <section
-        className="
-          relative
-          bg-white
-        "
-      >
-        <div
-          className="
-            mx-auto
-            max-w-[1450px]
+     {/* =================================================
+    PROPERTY DETAILS
+================================================= */}
 
-            px-5
+<section
+  className="
+    relative
+    bg-white
+  "
+>
+  <div
+    className="
+      mx-auto
+      max-w-[1450px]
 
-            sm:px-8
+      px-5
 
-            lg:px-10
-          "
-        >
-          <div
-            className="
-              grid
-              grid-cols-1
+      sm:px-8
 
-              border-b
-              border-black/10
+      lg:px-10
+    "
+  >
+    <div
+      className="
+        grid
+        grid-cols-1
 
-              sm:grid-cols-2
+        border-b
+        border-black/10
 
-              lg:grid-cols-4
-            "
-          >
-            {/* STATUS */}
+        sm:grid-cols-2
 
-            <DetailItem
-              icon={
-                <Tag
-                  size={22}
-                  strokeWidth={1.3}
-                />
-              }
-              label="Status"
-              value={statusLabel}
+        lg:grid-cols-4
+      "
+    >
+      {/* STATUS */}
+
+      <DetailItem
+        icon={
+          <Tag
+            size={22}
+            strokeWidth={1.3}
+          />
+        }
+        label="Status"
+        value={statusLabel}
+      />
+
+      {/* BEDROOMS */}
+
+      {listing.beds != null && (
+        <DetailItem
+          icon={
+            <BedDouble
+              size={22}
+              strokeWidth={1.3}
             />
+          }
+          label="Bedrooms"
+          value={String(
+            listing.beds
+          )}
+        />
+      )}
 
-            {/* BEDS */}
+      {/* BATHROOMS */}
 
-            {listing.beds != null && (
-              <DetailItem
-                icon={
-                  <BedDouble
-                    size={22}
-                    strokeWidth={1.3}
-                  />
-                }
-                label="Beds"
-                value={String(
-                  listing.beds
-                )}
-              />
-            )}
+      {listing.baths != null && (
+        <DetailItem
+          icon={
+            <Bath
+              size={22}
+              strokeWidth={1.3}
+            />
+          }
+          label="Bathrooms"
+          value={String(
+            listing.baths
+          )}
+        />
+      )}
 
-            {/* BATHS */}
+      {/* ROOMS */}
 
-            {listing.baths != null && (
-              <DetailItem
-                icon={
-                  <Bath
-                    size={22}
-                    strokeWidth={1.3}
-                  />
-                }
-                label="Baths"
-                value={String(
-                  listing.baths
-                )}
-              />
-            )}
+      {listing.rooms != null && (
+        <DetailItem
+          icon={
+            <DoorOpen
+              size={22}
+              strokeWidth={1.3}
+            />
+          }
+          label="Rooms"
+          value={String(
+            listing.rooms
+          )}
+        />
+      )}
 
-            {/* SQFT */}
+      {/* INTERIOR AREA */}
 
-            {listing.sqft && (
-              <DetailItem
-                icon={
-                  <Maximize2
-                    size={22}
-                    strokeWidth={1.3}
-                  />
-                }
-                label="Sq. Ft."
-                value={
-                  listing.sqft
-                }
-              />
-            )}
-          </div>
-        </div>
-      </section>
+      {listing.sqft && (
+        <DetailItem
+          icon={
+            <Maximize2
+              size={22}
+              strokeWidth={1.3}
+            />
+          }
+          label="Interior Area"
+          value={`${listing.sqft} Sq. Ft.`}
+        />
+      )}
+
+      {/* LOT SIZE */}
+
+      {listing.lotSize && (
+        <DetailItem
+          icon={
+            <Ruler
+              size={22}
+              strokeWidth={1.3}
+            />
+          }
+          label="Lot Size"
+          value={
+            listing.lotSize
+          }
+        />
+      )}
+
+      {/* PARKING */}
+
+      {listing.parking && (
+        <DetailItem
+          icon={
+            <Car
+              size={22}
+              strokeWidth={1.3}
+            />
+          }
+          label="Parking"
+          value={
+            listing.parking
+          }
+        />
+      )}
+
+      {/* YEAR BUILT */}
+
+      {listing.yearBuilt != null && (
+        <DetailItem
+          icon={
+            <CalendarDays
+              size={22}
+              strokeWidth={1.3}
+            />
+          }
+          label="Year Built"
+          value={String(
+            listing.yearBuilt
+          )}
+        />
+      )}
+
+      {/* PROPERTY TYPE */}
+
+      {listing.propertyType && (
+        <DetailItem
+          icon={
+            <House
+              size={22}
+              strokeWidth={1.3}
+            />
+          }
+          label="Property Type"
+          value={
+            listing.propertyType
+          }
+        />
+      )}
+    </div>
+  </div>
+</section>
 
       {/* =================================================
           PROPERTY INFORMATION
@@ -758,58 +887,147 @@ export default function PropertySingle({
             </h2>
 
             <div
-              className="
-                mt-7
-                max-w-[800px]
+            className="
+              mt-7
+              max-w-[800px]
 
-                font-body
-                text-[14px]
-                leading-[1.9]
+              font-body
+              text-[14px]
+              leading-[1.9]
 
-                text-black/70
+              text-black/70
 
-                md:text-[15px]
-              "
-            >
+              md:text-[15px]
+            "
+          >
+            {listing.description ? (
               <p>
-                This property is
-                located at{" "}
-                <strong>
-                  {
-                    listing.address
-                  }
-                </strong>
-                .
+                {listing.description}
               </p>
-
-              <p className="mt-5">
-                Current listing status
-                is{" "}
-                <strong>
-                  {statusLabel}
-                </strong>
-                , with a listed price
-                of{" "}
-                <strong>
-                  {listing.price}
-                </strong>
-                .
-              </p>
-
-              {listing.sqft && (
-                <p className="mt-5">
-                  The property includes
-                  approximately{" "}
+            ) : (
+              <>
+                <p>
+                  This{" "}
+                  {listing.propertyType
+                    ? listing.propertyType.toLowerCase()
+                    : "property"}{" "}
+                  is located at{" "}
                   <strong>
-                    {
-                      listing.sqft
-                    }{" "}
-                    square feet
+                    {listing.address}
                   </strong>
                   .
                 </p>
-              )}
-            </div>
+
+                <p className="mt-5">
+                  The property is currently{" "}
+                  <strong>
+                    {statusLabel}
+                  </strong>{" "}
+                  with a listed price of{" "}
+                  <strong>
+                    {listing.price}
+                  </strong>
+                  .
+                </p>
+
+                {(listing.beds != null ||
+                  listing.baths != null ||
+                  listing.rooms != null) && (
+                  <p className="mt-5">
+                    The property features{" "}
+
+                    {listing.beds != null && (
+                      <>
+                        <strong>
+                          {listing.beds} bedrooms
+                        </strong>
+                        {listing.baths != null ||
+                        listing.rooms != null
+                          ? ", "
+                          : "."}
+                      </>
+                    )}
+
+                    {listing.baths != null && (
+                      <>
+                        <strong>
+                          {listing.baths} bathrooms
+                        </strong>
+                        {listing.rooms != null
+                          ? ", "
+                          : "."}
+                      </>
+                    )}
+
+                    {listing.rooms != null && (
+                      <>
+                        and{" "}
+                        <strong>
+                          {listing.rooms} rooms
+                        </strong>
+                        .
+                      </>
+                    )}
+                  </p>
+                )}
+
+                {listing.sqft && (
+                  <p className="mt-5">
+                    The interior provides
+                    approximately{" "}
+                    <strong>
+                      {listing.sqft} square
+                      feet
+                    </strong>
+
+                    {listing.lotSize
+                      ? (
+                        <>
+                          {" "}
+                          and sits on a{" "}
+                          <strong>
+                            {listing.lotSize}
+                          </strong>{" "}
+                          lot.
+                        </>
+                      )
+                      : "."}
+                  </p>
+                )}
+
+                {(listing.parking ||
+                  listing.yearBuilt) && (
+                  <p className="mt-5">
+                    {listing.parking && (
+                      <>
+                        Parking includes{" "}
+                        <strong>
+                          {listing.parking}
+                        </strong>
+                      </>
+                    )}
+
+                    {listing.parking &&
+                      listing.yearBuilt && (
+                        <> and </>
+                      )}
+
+                    {listing.yearBuilt && (
+                      <>
+                        the property was
+                        built in{" "}
+                        <strong>
+                          {listing.yearBuilt}
+                        </strong>
+                      </>
+                    )}
+
+                    .
+                  </p>
+                )}
+              </>
+            )}
+          </div>
           </div>
 
           {/* =================================================

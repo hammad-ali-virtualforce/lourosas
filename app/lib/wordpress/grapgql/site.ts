@@ -114,12 +114,14 @@ export type SiteSettings = {
 
     legalLinks: LegalLink[];
 
-    disclaimerText1: string;
-    disclaimerText2: string;
-    disclaimerCopyright: string;
+    disclaimerText1: string| null;
+    disclaimerText2: string| null;
+    disclaimerCopyright: string| null;
 
-    websiteCopyright: string;
-    privacyLink: string;
+    websiteCopyright: string| null;
+    privacyLink: string| null;
+    termsLink: string| null;
+    fhslink: string| null;
   };
 };
 
@@ -294,6 +296,8 @@ export async function getSiteSettings() {
 
           websiteCopyright
           privacyLink
+          termsLink
+          fhslink
         }
       }
     }
