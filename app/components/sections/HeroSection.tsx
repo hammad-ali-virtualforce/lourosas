@@ -402,7 +402,7 @@ function HeroSearch({
         name="q"
         placeholder={placeholder}
         className="
-          h-[58px]
+          min-h-[58px]
           min-w-0
           flex-1
           bg-white
